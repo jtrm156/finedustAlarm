@@ -45,40 +45,137 @@
         app:layout_constraintLeft_toRightOf="@id/gd_left"
         app:layout_constraintRight_toLeftOf="@id/gd_right"
         />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/start_txt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Loading ..."
-        android:textColor="@color/white"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@id/start_image1"
         app:layout_constraintLeft_toRightOf="@id/gd_left"
         app:layout_constraintRight_toLeftOf="@id/gd_right"
+        android:layout_marginTop="30dp"
         />
-    <androidx.appcompat.widget.AppCompatTextView
+
+    <LinearLayout
         android:id="@+id/naver"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/gd_left"
         app:layout_constraintRight_toLeftOf="@id/gd_right"
-        app:layout_constraintTop_toBottomOf=""
-        />
-    <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@id/start_txt1"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:weightSum="6"
+        android:gravity="center"
+        android:background="@drawable/edge1"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/image3"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/naver2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="네이버 로그인"
+            android:gravity="center"
+            android:layout_weight="4"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/kakao"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:weightSum="6"
         app:layout_constraintLeft_toRightOf="@id/gd_left"
         app:layout_constraintRight_toLeftOf="@id/gd_right"
-        />
-    <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@id/naver"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center"
+        android:background="@drawable/edge2"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/image4"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/kakao2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="카카오 로그인"
+            android:background="@drawable/edge2"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_weight="4"
+            android:gravity="center"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/google"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:weightSum="6"
         app:layout_constraintLeft_toRightOf="@id/gd_left"
         app:layout_constraintRight_toLeftOf="@id/gd_right"
-        />
+        app:layout_constraintTop_toBottomOf="@id/kakao"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center"
+        android:background="@drawable/edge3"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/image5"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/google2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="  구글 로그인   "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_weight="4"
+            android:gravity="center"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
@@ -18,10 +19,17 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
 
+subprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

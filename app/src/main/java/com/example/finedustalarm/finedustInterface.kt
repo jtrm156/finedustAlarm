@@ -2,16 +2,19 @@ package com.example.finedustalarm
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface finedustInterface {
 
-    @GET("http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty")
-    fun finedust(@Query("stationName") stationName: String,
-                 @Query("dataTerm") dataTerm: String,
-                 @Query("pageNo") pageNo: Int,
-                 @Query("numOfRows") numOfRows: Int,
+    @GET("getCtprvnRltmMesureDnsty?")
+    @Headers("Content-Type: application/json")
+    fun finedust(@Query("serviceKey") serviceKey: String,
                  @Query("returnType") returnType: String,
-                 @Query("serviceKey") serviceKey: String)
-    : Call<Item>
+                 @Query("numOfRows") numOfRows: String,
+                 @Query("pageNo") pageNo: String,
+                 @Query("sidoName") sidoName: String,
+                 @Query("ver") ver : String
+                 )
+    : Call<finedustdata>
 }

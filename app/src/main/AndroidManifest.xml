@@ -34,6 +34,10 @@
             android:name=".mapactivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".stationActivity"
+            android:exported="true">
+        </activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key"/>

@@ -3,6 +3,7 @@ package com.example.finedustalarm
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -13,20 +14,28 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.finedustalarm.databinding.ActivityMapBinding
+import com.example.finedustalarm.databinding.ActivityStationBinding
 import net.daum.android.map.MapActivity
 import net.daum.mf.map.api.MapPoint
 
-class mapactivity : AppCompatActivity() {
-    lateinit var binding: ActivityMapBinding
+class stationActivity : AppCompatActivity() {
+    lateinit var binding: ActivityStationBinding
     val PERMISSIONS_REQUEST_CODE = 100
     var REQUIRED_PERMISSIONS = arrayOf<String>( Manifest.permission.ACCESS_FINE_LOCATION)
+    private lateinit var mPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        binding = ActivityMapBinding.inflate(layoutInflater)
+        mPreferences = getSharedPreferences(MainActivity.Music, MODE_PRIVATE);
+        val preferencesEditor: SharedPreferences.Editor = mPreferences.edit()
+
+        binding = ActivityStationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        binding.stationTxt1.text = mPreferences.getString("addr0", null)
+        binding.stationTxt2.text = mPreferences.getString("addr1", null)
+        binding.stationTxt3.text = mPreferences.getString("addr2", null)
 
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -37,7 +46,7 @@ class mapactivity : AppCompatActivity() {
                 val uLatitude = userNowLocation?.latitude
                 val uLongitude = userNowLocation?.longitude
                 val uNowPosition = MapPoint.mapPointWithGeoCoord(uLatitude!!, uLongitude!!)
-                binding.mapView.setMapCenterPoint(uNowPosition, true)
+                binding.mapView2.setMapCenterPoint(uNowPosition, true)
             }catch(e: NullPointerException){
                 Log.e("LOCATION_ERROR", e.toString())
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -46,7 +55,7 @@ class mapactivity : AppCompatActivity() {
                     ActivityCompat.finishAffinity(this)
                 }
 
-                val intent = Intent(this, MapActivity::class.java)
+                val intent = Intent(this, stationActivity::class.java)
                 startActivity(intent)
                 System.exit(0)
             }

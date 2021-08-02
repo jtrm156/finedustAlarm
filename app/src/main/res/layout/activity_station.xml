@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".stationActivity"
+    android:background="#00B0FF">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gd_top2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gd_bottom2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gd_left2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gd_right2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/gd_top2"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/station_color">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/station_txt4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  주변 측정소"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+    </LinearLayout>
+
+
+    <net.daum.mf.map.api.MapView
+        android:id="@+id/mapView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/gd_top2"
+        app:layout_constraintBottom_toTopOf="@id/gd_bottom2"
+        app:layout_constraintRight_toLeftOf="@id/gd_right2"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="250dp"
+        />
+    <View
+        android:id="@+id/station_view"
+        android:layout_width="0dp"
+        android:layout_height="2px"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        app:layout_constraintRight_toLeftOf="@id/gd_right2"
+        app:layout_constraintTop_toBottomOf="@id/mapView2"
+        android:background="@color/white"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/station_txt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="측정소 정보"
+        android:gravity="left"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/station_view"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        android:layout_marginTop="10dp"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/station_txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="측정소 정보"
+        android:gravity="left"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/station_txt1"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        android:layout_marginTop="10dp"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/station_txt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="측정소 정보"
+        android:gravity="left"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/station_txt2"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        android:layout_marginTop="10dp"
+        />
+    <View
+        android:id="@+id/station_view2"
+        android:layout_width="0dp"
+        android:layout_height="2px"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toRightOf="@id/gd_left2"
+        app:layout_constraintRight_toLeftOf="@id/gd_right2"
+        app:layout_constraintBottom_toTopOf="@id/gd_bottom2"
+        android:background="@color/white"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

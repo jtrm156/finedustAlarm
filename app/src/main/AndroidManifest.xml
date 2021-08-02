@@ -29,6 +29,15 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="@string/kakao_scheme"
+                    android:host="@string/kakaolink_host"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".mapactivity"
@@ -49,7 +58,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:host="oauth"
-                    android:scheme="kakao{	20442513b0533fa7c912f5000a48ec9d}" />
+                    android:scheme="kakao{20442513b0533fa7c912f5000a48ec9d}" />
             </intent-filter>
         </activity>
     </application>

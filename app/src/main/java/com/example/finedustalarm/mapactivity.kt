@@ -3,6 +3,7 @@ package com.example.finedustalarm
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -15,18 +16,36 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.finedustalarm.databinding.ActivityMapBinding
 import net.daum.android.map.MapActivity
+import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 
 class mapactivity : AppCompatActivity() {
     lateinit var binding: ActivityMapBinding
     val PERMISSIONS_REQUEST_CODE = 100
     var REQUIRED_PERMISSIONS = arrayOf<String>( Manifest.permission.ACCESS_FINE_LOCATION)
+    private lateinit var mPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
+
+        mPreferences = getSharedPreferences(MainActivity.Music, MODE_PRIVATE);
+        val preferencesEditor: SharedPreferences.Editor = mPreferences.edit()
         binding = ActivityMapBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        val point = MapPOIItem()
+        point.apply {
+            var x1 = mPreferences.getString("latitude", null)!!.toDouble()
+            var y1 = mPreferences.getString("longitude", null)!!.toDouble()
+            itemName = "현재 위치"
+            mapPoint = MapPoint.mapPointWithGeoCoord(x1,
+                y1)
+            markerType = MapPOIItem.MarkerType.BluePin
+            selectedMarkerType = MapPOIItem.MarkerType.RedPin
+            isCustomImageAutoscale = false
+        }
+        binding.mapView.addPOIItem(point)
 
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if(permissionCheck == PackageManager.PERMISSION_GRANTED) {

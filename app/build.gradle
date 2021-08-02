@@ -57,4 +57,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation files('libs/libDaumMapAndroid.jar')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+    implementation group: 'com.kakao.sdk', name: 'kakaolink', version: project.KAKAO_SDK_VERSION
 }

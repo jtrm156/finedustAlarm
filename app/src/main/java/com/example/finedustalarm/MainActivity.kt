@@ -24,7 +24,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.finedustalarm.databinding.ActivityMainBinding
 import com.example.finedustalarm.databinding.ActivityMainBinding.inflate
 import com.google.android.gms.location.*
+import com.kakao.kakaolink.KakaoLink
+import com.kakao.kakaolink.v2.KakaoLinkResponse
+import com.kakao.kakaolink.v2.KakaoLinkService
+import com.kakao.message.template.*
+import com.kakao.network.ErrorResult
+import com.kakao.network.callback.ResponseCallback
 import com.kakao.sdk.user.UserApiClient
+import com.kakao.util.helper.log.Logger
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,7 +45,6 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     var API_KEY = "qczxfsoiNYHP%2BcLy4o3caY21YIBvNixg8JPDcvLF3dHfzjxvw9ntSmrV7V0R5ygvQ827zrMPUN39zxxb8075og%3D%3D"
-    var API_KEY2 = "9ad3ef00455b86a0a9670df7bce917cd"
     var currentPosition=0
     val TAG: String = "로그"
 
@@ -90,6 +96,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.mainLink.setOnClickListener(){
+            kakaoLink()
+        }
+
         var DAPI_KEY = URLDecoder.decode(API_KEY, "UTF-8")
 
         binding.mainViewpager.adapter = ViewPagerAdapter(getIdolList())
@@ -135,6 +145,51 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun kakaoLink(){
+        val params = FeedTemplate
+            .newBuilder(
+                ContentObject.newBuilder(
+                    "오늘의 미세먼지 정보",
+                    "http://k.kakaocdn.net/dn/dRHGmW/btraXSxGQ0C/8YYUMbDO5NYq5qdl2YTh40/kakaolink40_original.jpg",
+                    LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
+                        .setMobileWebUrl("https://developers.kakao.com").build()
+                )
+                    .setDescrption("미세먼지 앱을 통해서 확인하세요")
+                    .build()
+            )
+            .setSocial(
+                SocialObject.newBuilder().setLikeCount(286).setCommentCount(45)
+                    .setSharedCount(845).setViewCount(40).build()
+            )
+            .addButton(
+                ButtonObject(
+                    "자세히 보기", LinkObject.newBuilder()
+                        .setWebUrl("'https://developers.kakao.com")
+                        .setMobileWebUrl("https://developers.kakao.com")
+                        .setAndroidExecutionParams("key1=value1")
+                        .setIosExecutionParams("key1=value1")
+                        .build()
+                )
+            )
+            .build()
+
+        val serverCallbackArgs: MutableMap<String, String> =
+            HashMap()
+        serverCallbackArgs["user_id"] = "\${current_user_id}"
+        serverCallbackArgs["product_id"] = "\${shared_product_id}"
+
+        KakaoLinkService.getInstance().sendDefault(
+            this,
+            params,
+            object : ResponseCallback<KakaoLinkResponse?>() {
+                override fun onFailure(errorResult: ErrorResult) {
+                    Logger.e(errorResult.toString())
+                }
+
+                override fun onSuccess(result: KakaoLinkResponse?) { // 템플릿 밸리데이션과 쿼터 체크가 성공적으로 끝남. 톡에서 정상적으로 보내졌는지 보장은 할 수 없다. 전송 성공 유무는 서버콜백 기능을 이용하여야 한다.
+                }
+            })
+    }
     protected fun startLocationUpdates() {
         Log.d(TAG, "startLocationUpdates()")
 
@@ -349,13 +404,16 @@ class MainActivity : AppCompatActivity() {
                 response: Response<finedustdata3X>
             ) {
                 if (response.isSuccessful) {
+                    mPreferences = getSharedPreferences(Music, MODE_PRIVATE);
+                    val preferencesEditor: SharedPreferences.Editor = mPreferences.edit()
                     val result = response.body() as finedustdata3X
                     Log.d("MainActivity", "complete")
                     binding.mainTxt8.text = result.response.body.items[0].pm10Value + "㎍/㎥  "
                     binding.mainTxt11.text = result.response.body.items[0].pm25Value + "㎍/㎥  "
                     binding.mainTxt14.text = result.response.body.items[0].o3Value + "ppm  "
                     binding.mainTxt17.text = result.response.body.items[0].coValue + "ppm  "
-
+                    preferencesEditor.putString("dataTime",result.response.body.items[0].dataTime)
+                    preferencesEditor.apply()
                     if (result.response.body.items[0].pm10Grade == "1") {
                         binding.mainCons.setBackgroundResource(R.drawable.maincolor2)
                         binding.mainTxt1.text = "최고 좋음"
@@ -417,7 +475,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy(){
         super.onDestroy()
-
 
         UserApiClient.instance.logout { error ->
             if (error != null) {
